@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout_tablet"
     android:background="#df7e4b"
     tools:context="com.junhyeoklee.bakingapp.ui.MainActivity">
 
-    <TextView
+<TextView
         android:id="@+id/tv_main_empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
