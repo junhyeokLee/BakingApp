@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.junhyeoklee.bakingapp"
         minSdkVersion 19
@@ -20,6 +20,13 @@ android {
 
 }
 
+ext {
+    support_lib_v = '27.1.1'
+    aac_v = '1.1.1'
+    retrofit_v = '2.3.0'
+    room_v = '1.1.1'
+    glide_v = '4.7.1'
+}
 
 dependencies {
 
@@ -40,16 +47,19 @@ dependencies {
     def runnerVersion = "1.0.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
-    implementation "com.android.support:support-v4:$supportLibVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
-
-    implementation "com.android.support:cardview-v7:$supportLibVersion"
+    implementation "com.android.support:support-v4:$support_lib_v" //v4
+    implementation "com.android.support:appcompat-v7:$support_lib_v" // dependent on v4
+    implementation "com.android.support:exifinterface:$support_lib_v"
+    implementation "com.android.support:cardview-v7:$support_lib_v"
+    implementation "com.android.support:recyclerview-v7:$support_lib_v"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.picasso:picasso:2.3.3'
+
+    implementation "com.github.bumptech.glide:glide:4.7.1" // loading images
+    annotationProcessor "com.github.bumptech.glide:compiler:4.7.1"
 
     implementation "android.arch.persistence.room:runtime:1.0.0"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -58,19 +68,32 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
 
-    implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
+//    implementation 'com.google.android.exoplayer:exoplayer:r2.2.0'
 
     implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
 
+//
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.1' // exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.1'
+
+
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
-    // Recycler view
-    implementation 'com.android.support:recyclerview-v7:26.0.0'
-    // Card view
-    implementation 'com.android.support:cardview-v7:26.0.0'
 
     testImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "com.android.support.test:runner:$runnerVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support:support-annotations:27.1.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+
+    implementation 'com.facebook.stetho:stetho:1.5.0' // DB inspection in chrome
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 }
