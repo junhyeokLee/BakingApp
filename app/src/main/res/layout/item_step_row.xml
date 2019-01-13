@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!--TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_step_description"
+        tools:text="Recipe Step Description"
+        /> -->
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_step"
+        tools:text="Recipte Step #"
+        android:gravity="left|center_vertical"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+
+        />
+</LinearLayout>

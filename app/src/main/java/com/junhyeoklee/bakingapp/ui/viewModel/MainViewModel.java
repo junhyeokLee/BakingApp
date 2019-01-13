@@ -50,15 +50,16 @@ public class MainViewModel extends AndroidViewModel{
         if(idlingResource != null){
             idlingResource.setIdleState(false);
         }
-        RecipeInterface mRetrofitRequest =
-                new Retrofit.Builder()
-                .baseUrl(RecipeInterface.API_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
-                        .create(RecipeInterface.class);
+       Call<List<Recipe>> call = RecipeApiService.getRetrofitInstance().create(RecipeInterface.class).getRecipes();
+//        RecipeInterface mRetrofitRequest =
+//                new Retrofit.Builder()
+//                .baseUrl(RecipeInterface.API_URL)
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build()
+//                        .create(RecipeInterface.class);
 
         final List<Recipe> newData = new ArrayList<>();
-        Call<List<Recipe>> call = mRetrofitRequest.getRecipes();
+//        Call<List<Recipe>> call = mRetrofitRequest.getRecipes();
 
         call.enqueue(new Callback<List<Recipe>>() {
             @Override

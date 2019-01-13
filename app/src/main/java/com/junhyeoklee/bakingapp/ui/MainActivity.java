@@ -115,16 +115,16 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
                 recipe.getIngredients()
         );
 
-//        // update widget UI after user pick a recipe
+        // update widget UI after user pick a recipe
 //        WidgetUpdateService.startActionUpdateWidget(this,
 //                recipe.getName(),
 //                ingredients);
 
-//        Intent intent = new Intent(getApplicationContext(),
-//                DetailActivity.class);
-//        intent.putExtra(DetailActivity.RECIPE_ITEM,
-//                recipe);
-//        startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(),
+                DetailActivity.class);
+        intent.putExtra(DetailActivity.RECIPE_ITEM,
+                recipe);
+        startActivity(intent);
 
     }
 
