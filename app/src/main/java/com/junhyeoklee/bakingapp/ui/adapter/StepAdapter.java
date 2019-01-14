@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.junhyeoklee.bakingapp.R;
 import com.junhyeoklee.bakingapp.data.model.Step;
@@ -74,12 +75,12 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
     class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        Button stepButton;
+        TextView stepButton;
 
         public StepViewHolder(View itemView){
             super(itemView);
 
-            stepButton = (Button)itemView.findViewById(R.id.bt_step);
+            stepButton = (TextView)itemView.findViewById(R.id.step_name_text);
 
             itemView.setOnClickListener(this);
             stepButton.setOnClickListener(this);

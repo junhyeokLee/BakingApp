@@ -5,10 +5,12 @@ android {
     defaultConfig {
         applicationId "com.junhyeoklee.bakingapp"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -72,6 +74,9 @@ dependencies {
 
     implementation "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion"
 
+    // Butterknife
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 //
     implementation 'com.google.android.exoplayer:exoplayer-core:2.8.1' // exoplayer
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.1'

@@ -39,17 +39,23 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.junhyeoklee.bakingapp.GlideApp;
 import com.junhyeoklee.bakingapp.R;
+import com.junhyeoklee.bakingapp.data.model.Ingredient;
 import com.junhyeoklee.bakingapp.data.model.Recipe;
 import com.junhyeoklee.bakingapp.data.model.Step;
+import com.junhyeoklee.bakingapp.ui.holders.IngredientsViewHolder;
+import com.junhyeoklee.bakingapp.ui.holders.RecipeViewHolder;
+import com.junhyeoklee.bakingapp.ui.holders.StepViewHolder;
 import com.junhyeoklee.bakingapp.util.Utility;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>{
+public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = "RecipeAdapter";
     private Context mContext;
+    private Recipe mRecipe;
     private List<Recipe> recipeList;
     private SimpleExoPlayer mStepExoPlayer;
     private boolean EXO_RELEASED = true;
@@ -67,11 +73,68 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
     @Override
-    public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_recipe_row,parent,false);
       mContext = parent.getContext();
         return new RecipeViewHolder(view);
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
+
+        if (holder instanceof RecipeViewHolder) {
+
+            ((RecipeViewHolder) holder).mRecipe = recipeList.get(position);
+            String recipeName = recipeList.get(position).getName();
+            String ingredientNum = String.valueOf(recipeList.get(position).getIngredients().size());
+            String stepsNum = String.valueOf(recipeList.get(position).getSteps().size());
+            String servingsNum = String.valueOf(recipeList.get(position).getServings());
+            final String lastNotEmptyVideoURL = getLastVideoURL(position);
+
+            loadVideoThumbnail(mContext, lastNotEmptyVideoURL, ((RecipeViewHolder) holder).mPlayIconButton, ((RecipeViewHolder) holder).mThumbnailView);
+
+            if (mIngredientWidgetID == AppWidgetManager.INVALID_APPWIDGET_ID || mIngredientWidgetID == -1) {
+
+                mStepExoPlayer = getExoPlayer(mContext, lastNotEmptyVideoURL, ((RecipeViewHolder) holder));
+
+                ((RecipeViewHolder) holder).mPlayIconButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!EXO_RELEASED) {
+                            mStepExoPlayer.release();
+                            mStepExoPlayer = getExoPlayer(mContext, lastNotEmptyVideoURL, ((RecipeViewHolder) holder));
+                        }
+                        ((RecipeViewHolder) holder).mStepExoPlayerView.setControllerAutoShow(true);
+
+                        ((RecipeViewHolder) holder).mStepExoPlayerView.setPlayer(mStepExoPlayer);
+
+                        mStepExoPlayer.prepare(((RecipeViewHolder) holder).mMediaSource);
+
+                        mStepExoPlayer.setPlayWhenReady(true);
+
+                        EXO_RELEASED = false;
+                        switchToExoPlayerView((RecipeViewHolder) holder);
+
+                    }
+                });
+            }
+            ((RecipeViewHolder) holder).recipeBtnView.setText(recipeName);
+            ((RecipeViewHolder) holder).recipeBtnView.setTextSize(16);
+            ((RecipeViewHolder) holder).ingredientNumTextView.setText(ingredientNum);
+            ((RecipeViewHolder) holder).steps_labelNumText.setText(stepsNum);
+            ((RecipeViewHolder) holder).servings_labelNumText.setText(servingsNum);
+
+            ((RecipeViewHolder) holder).recipeBtnView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mItemClickListener.onItemClickListener(position);
+                }
+            });
+
+        }
+    }
+
 
     public static void loadVideoThumbnail(Context ctx, String videoURL, final ImageButton playButton, final ImageView thumbnailView) {
         CircularProgressDrawable circularProgressDrawable = Utility.getCircleProgressDrawable(ctx, 15f, 80f);
@@ -95,53 +158,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(final RecipeViewHolder holder, int position) {
-
-        holder.mRecipe = recipeList.get(position);
-        String recipeName = recipeList.get(position).getName();
-        String ingredientNum = String.valueOf(recipeList.get(position).getIngredients().size());
-        String stepsNum = String.valueOf(recipeList.get(position).getSteps().size());
-        String servingsNum = String.valueOf(recipeList.get(position).getServings());
-       final String lastNotEmptyVideoURL = getLastVideoURL(position);
-
-        loadVideoThumbnail(mContext,lastNotEmptyVideoURL,holder.mPlayIconButton,holder.mThumbnailView);
-
-        if (mIngredientWidgetID == AppWidgetManager.INVALID_APPWIDGET_ID || mIngredientWidgetID == -1) {
-
-            mStepExoPlayer = getExoPlayer(mContext, lastNotEmptyVideoURL, holder);
-
-            holder.mPlayIconButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!EXO_RELEASED) {
-                        mStepExoPlayer.release();
-                        mStepExoPlayer = getExoPlayer(mContext, lastNotEmptyVideoURL, holder);
-                    }
-                    holder.mStepExoPlayerView.setControllerAutoShow(true);
-
-                    holder.mStepExoPlayerView.setPlayer(mStepExoPlayer);
-
-                    mStepExoPlayer.prepare(holder.mMediaSource);
-
-                    mStepExoPlayer.setPlayWhenReady(true);
-
-                    EXO_RELEASED = false;
-                    switchToExoPlayerView(holder);
-
-                }
-            });
-        }
-        holder.recipeBtnView.setText(recipeName);
-        holder.recipeBtnView.setTextSize(16);
-        holder.ingredientNumTextView.setText(ingredientNum);
-        holder.steps_labelNumText.setText(stepsNum);
-        holder.servings_labelNumText.setText(servingsNum);
-    }
-
-    @Override
-    public void onViewRecycled(@NonNull RecipeViewHolder holder) {
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewRecycled(holder);
-        switchToThumbnailView(holder);
+        switchToThumbnailView((RecipeViewHolder) holder);
     }
 
     private void switchToExoPlayerView(RecipeViewHolder holder) {
@@ -211,46 +230,46 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         notifyDataSetChanged();
     }
 
-    class RecipeViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
-        View mView;
-         ImageView mThumbnailView;
-         ImageButton mPlayIconButton;
-         PlayerView mStepExoPlayerView;
-         FrameLayout mThumbnailHolder;
-        Button recipeBtnView;
-        TextView ingredientNumTextView;
-        TextView steps_labelNumText;
-        TextView servings_labelNumText;
-//        ImageView imageView;
-        Recipe mRecipe;
-        MediaSource mMediaSource;
-
-        public RecipeViewHolder(View itemView){
-
-            super(itemView);
-            mView = itemView;
-            mThumbnailView = itemView.findViewById(R.id.iv_recipe_thumbnail);
-            mPlayIconButton = itemView.findViewById(R.id.ib_recipe_play_icon);
-            mThumbnailHolder = itemView.findViewById(R.id.fl_exo_thumbnail_holder);
-            mStepExoPlayerView = itemView.findViewById(R.id.exo_step_player);
-
-            recipeBtnView = (Button)itemView.findViewById(R.id.tv_recipe_name);
-            ingredientNumTextView = (TextView)itemView.findViewById(R.id.tv_ingredient_num);
-            steps_labelNumText = (TextView)itemView.findViewById(R.id.tv_steps_num);
-            servings_labelNumText = (TextView)itemView.findViewById(R.id.tv_servings_num);
-//            imageView = (ImageView)itemView.findViewById(R.id.iv_main_image);
-
-            recipeBtnView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            // pass the current recipe item to start the detail fragment
-            int elementId = getAdapterPosition();
-            mItemClickListener.onItemClickListener(elementId);
-
-
-        }
-    }
+//    class RecipeViewHolder extends RecyclerView.ViewHolder
+//            implements View.OnClickListener {
+//        View mView;
+//         ImageView mThumbnailView;
+//         ImageButton mPlayIconButton;
+//         PlayerView mStepExoPlayerView;
+//         FrameLayout mThumbnailHolder;
+//        Button recipeBtnView;
+//        TextView ingredientNumTextView;
+//        TextView steps_labelNumText;
+//        TextView servings_labelNumText;
+////        ImageView imageView;
+//        Recipe mRecipe;
+//        MediaSource mMediaSource;
+//
+//        public RecipeViewHolder(View itemView){
+//
+//            super(itemView);
+//            mView = itemView;
+//            mThumbnailView = itemView.findViewById(R.id.iv_recipe_thumbnail);
+//            mPlayIconButton = itemView.findViewById(R.id.ib_recipe_play_icon);
+//            mThumbnailHolder = itemView.findViewById(R.id.fl_exo_thumbnail_holder);
+//            mStepExoPlayerView = itemView.findViewById(R.id.exo_step_player);
+//
+//            recipeBtnView = (Button)itemView.findViewById(R.id.btn_recipe_name);
+//            ingredientNumTextView = (TextView)itemView.findViewById(R.id.tv_ingredient_num);
+//            steps_labelNumText = (TextView)itemView.findViewById(R.id.tv_steps_num);
+//            servings_labelNumText = (TextView)itemView.findViewById(R.id.tv_servings_num);
+////            imageView = (ImageView)itemView.findViewById(R.id.iv_main_image);
+//
+//            recipeBtnView.setOnClickListener(this);
+//        }
+//
+//        @Override
+//        public void onClick(View view) {
+//            // pass the current recipe item to start the detail fragment
+//            int elementId = getAdapterPosition();
+//            mItemClickListener.onItemClickListener(elementId);
+//
+//
+//        }
+//    }
 }
