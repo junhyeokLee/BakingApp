@@ -2,6 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
        <shape>
+           <corners
+               android:bottomLeftRadius="2dp"
+               android:bottomRightRadius="2dp"
+               android:topLeftRadius="2dp"
+               android:topRightRadius="2dp" />
            <solid android:color="@color/colorPrimaryDark" />
            <!-- 테두리 내부 여백 설정 -->
            <padding
@@ -13,12 +18,17 @@
            <!-- 테두리 설정: 두께, 색상 -->
            <stroke
                android:width="3dp"
-               android:color="@android:color/white" />
+               android:color="@color/colorPrimaryDark" />
 
        </shape>
     </item>
     <item android:state_pressed="false">
     <shape>
+        <corners
+            android:bottomLeftRadius="2dp"
+            android:bottomRightRadius="2dp"
+            android:topLeftRadius="2dp"
+            android:topRightRadius="2dp" />
         <solid android:color="@color/colorPrimary" />
         <!-- 테두리 내부 여백 설정 -->
         <padding
@@ -29,8 +39,8 @@
 
         <!-- 테두리 설정: 두께, 색상 -->
         <stroke
-            android:width="3dp"
-            android:color="@color/colorAccent" />
+            android:width="1dp"
+            android:color="@color/colorPrimaryDark" />
     </shape>
     </item>
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.junhyeoklee.bakingapp.R;
 import com.junhyeoklee.bakingapp.data.model.Recipe;
@@ -43,6 +44,7 @@ public class DetailActivity extends AppCompatActivity {
         setTitle(recipe.getName());
         setupDetailViewModel(recipe);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -133,5 +135,16 @@ public class DetailActivity extends AppCompatActivity {
                 detailViewModel.setIngredientsDisplayed(false);
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                onBackPressed();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
