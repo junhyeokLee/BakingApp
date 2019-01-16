@@ -75,10 +75,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recipe_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_row,parent,false);
       mContext = parent.getContext();
         return new RecipeViewHolder(view);
     }
+
+
+
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
@@ -229,47 +232,4 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         notifyDataSetChanged();
     }
-
-//    class RecipeViewHolder extends RecyclerView.ViewHolder
-//            implements View.OnClickListener {
-//        View mView;
-//         ImageView mThumbnailView;
-//         ImageButton mPlayIconButton;
-//         PlayerView mStepExoPlayerView;
-//         FrameLayout mThumbnailHolder;
-//        Button recipeBtnView;
-//        TextView ingredientNumTextView;
-//        TextView steps_labelNumText;
-//        TextView servings_labelNumText;
-////        ImageView imageView;
-//        Recipe mRecipe;
-//        MediaSource mMediaSource;
-//
-//        public RecipeViewHolder(View itemView){
-//
-//            super(itemView);
-//            mView = itemView;
-//            mThumbnailView = itemView.findViewById(R.id.iv_recipe_thumbnail);
-//            mPlayIconButton = itemView.findViewById(R.id.ib_recipe_play_icon);
-//            mThumbnailHolder = itemView.findViewById(R.id.fl_exo_thumbnail_holder);
-//            mStepExoPlayerView = itemView.findViewById(R.id.exo_step_player);
-//
-//            recipeBtnView = (Button)itemView.findViewById(R.id.btn_recipe_name);
-//            ingredientNumTextView = (TextView)itemView.findViewById(R.id.tv_ingredient_num);
-//            steps_labelNumText = (TextView)itemView.findViewById(R.id.tv_steps_num);
-//            servings_labelNumText = (TextView)itemView.findViewById(R.id.tv_servings_num);
-////            imageView = (ImageView)itemView.findViewById(R.id.iv_main_image);
-//
-//            recipeBtnView.setOnClickListener(this);
-//        }
-//
-//        @Override
-//        public void onClick(View view) {
-//            // pass the current recipe item to start the detail fragment
-//            int elementId = getAdapterPosition();
-//            mItemClickListener.onItemClickListener(elementId);
-//
-//
-//        }
-//    }
 }

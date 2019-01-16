@@ -2,23 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/bt_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/recipe_click"
         android:gravity="left|center_vertical"
         android:text="Recipe Ingredients"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        />
+        android:textColor="@android:color/background_light" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_steps"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:context=".screen.recipeinfo.RecipeInfoActivity"
+        tools:listitem="@layout/item_step_row"
         />
 
 </LinearLayout>

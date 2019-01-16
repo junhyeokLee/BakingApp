@@ -62,7 +62,7 @@ public class StepFragment extends Fragment {
 
 
                 TextView textViewStepId = (TextView) view.findViewById(R.id.tv_step_id);
-                String strId = "Step #" + stepInfo.getId();
+                String strId = "Step : " + stepInfo.getId();
                 textViewStepId.setText(strId);
 
                 TextView textViewStepShortDesc = (TextView) view.findViewById(R.id.tv_step_short_desc);
@@ -71,52 +71,52 @@ public class StepFragment extends Fragment {
                 TextView textViewStepDesc = (TextView) view.findViewById(R.id.tv_step_desc);
                 textViewStepDesc.setText(stepInfo.getDescription());
 
-                Button buttonVideo = (Button) view.findViewById(R.id.bt_play_video);
+//                Button buttonVideo = (Button) view.findViewById(R.id.bt_play_video);
 
                 String urlPath = steps.get(stepId).getVideoURL();
 
-                if (urlPath == null || urlPath.isEmpty()) {
-                    buttonVideo.setEnabled(false);
+//                if (urlPath == null || urlPath.isEmpty()) {
+//                    buttonVideo.setEnabled(false);
+//
+//                } else {
+//                    buttonVideo.setEnabled(true);
+//                }
 
-                } else {
-                    buttonVideo.setEnabled(true);
-                }
 
-
-                buttonVideo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DetailViewModel detailViewModel = ViewModelProviders.of(getActivity())
-                                .get(DetailViewModel.class);
-
-                        String videoTag = "video" + stepId;
-                        VideoFragment videoFragment = (VideoFragment) getActivity()
-                                .getSupportFragmentManager()
-                                .findFragmentByTag(videoTag);
-
-                        if (videoFragment == null) {
-                            String videoUrlString = steps.get(stepId).getVideoURL();
-                            videoFragment = VideoFragment.newInstance(videoUrlString);
-                        }
-
-                        FragmentTransaction transaction = getActivity().getSupportFragmentManager()
-                                .beginTransaction();
-
-                        int resId;
-                        if (detailViewModel.isTwoPane()) {
-                            // do nothing
-                            Log.d(TAG, "onClick: start video in fragment_video");
-                            resId = R.id.fragment_video;
-
-                        } else {
-                            // start the video fragment on phone in full screen
-                            resId = R.id.fragment_step_video;
-                        }
-
-                        transaction.replace(resId, videoFragment, videoTag);
-                        transaction.commit();
-                    }
-                });
+//                buttonVideo.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        DetailViewModel detailViewModel = ViewModelProviders.of(getActivity())
+//                                .get(DetailViewModel.class);
+//
+//                        String videoTag = "video" + stepId;
+//                        VideoFragment videoFragment = (VideoFragment) getActivity()
+//                                .getSupportFragmentManager()
+//                                .findFragmentByTag(videoTag);
+//
+//                        if (videoFragment == null) {
+//                            String videoUrlString = steps.get(stepId).getVideoURL();
+//                            videoFragment = VideoFragment.newInstance(videoUrlString);
+//                        }
+//
+//                        FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+//                                .beginTransaction();
+//
+//                        int resId;
+//                        if (detailViewModel.isTwoPane()) {
+//                            // do nothing
+//                            Log.d(TAG, "onClick: start video in fragment_video");
+//                            resId = R.id.fragment_video;
+//
+//                        } else {
+//                            // start the video fragment on phone in full screen
+//                            resId = R.id.fragment_step_video;
+//                        }
+//
+//                        transaction.replace(resId, videoFragment, videoTag);
+//                        transaction.commit();
+//                    }
+//                });
 
 
                 ImageView imageView = (ImageView) view.findViewById(R.id.iv_image);

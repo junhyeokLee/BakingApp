@@ -111,9 +111,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
     public void onItemClickListener(int itemId) {
 
         Recipe recipe = recipeAdapter.getItem(itemId);
-        ArrayList<Ingredient> ingredients = Utility.fromListtoArrayList(
-                recipe.getIngredients()
-        );
+        ArrayList<Ingredient> ingredients = Utility.fromListtoArrayList(recipe.getIngredients());
 
         // update widget UI after user pick a recipe
 //        WidgetUpdateService.startActionUpdateWidget(this,
