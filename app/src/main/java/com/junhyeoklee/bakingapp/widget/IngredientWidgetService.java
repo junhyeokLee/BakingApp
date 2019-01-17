@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.junhyeoklee.bakingapp.R;
 import com.junhyeoklee.bakingapp.data.model.Ingredient;
 
 import java.util.ArrayList;
@@ -87,15 +88,11 @@ class IngredientRemoteViewsFactory implements RemoteViewsService.RemoteViewsFact
         } else {
 
            // Log.d(TAG, "getViewAt: ingredients.size() = " + ingredients.size());
-            RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), android.R.layout.simple_list_item_1);
+            RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.ingredient_widget_item);
             Ingredient ingredient = ingredients.get(position);
-            remoteViews.setTextViewText(android.R.id.text1,
-                    ingredient.getQuantity()
-                            + " "
-                            + ingredient.getMeasure()
-                            + ", "
-                            + ingredient.getIngredient()
-            );
+            remoteViews.setTextViewText(R.id.tv_ingredient_widget_label,ingredient.getIngredient());
+            remoteViews.setTextViewText(R.id.tv_ingredient_widget_measure,ingredient.getMeasure());
+            remoteViews.setTextViewText(R.id.tv_ingredient_widget_quantity,String.valueOf(ingredient.getQuantity()));
             return remoteViews;
 
         }

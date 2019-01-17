@@ -7,4 +7,6 @@
     <color name="colorSecondaryDarkAlpha">#88355C01</color>
     <color name="colorAccent">#FFEC8C</color>
     <color name="gray">#e6e6e6</color>
+    <color name="colorError">@color/colorPrimary</color>
+    <color name="colorInfo">@color/colorAccent</color>
 </resources>

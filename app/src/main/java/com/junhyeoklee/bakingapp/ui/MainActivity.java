@@ -2,7 +2,9 @@ package com.junhyeoklee.bakingapp.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -24,6 +26,7 @@ import com.junhyeoklee.bakingapp.data.model.Recipe;
 import com.junhyeoklee.bakingapp.ui.adapter.RecipeAdapter;
 import com.junhyeoklee.bakingapp.ui.viewModel.MainViewModel;
 import com.junhyeoklee.bakingapp.util.Utility;
+import com.junhyeoklee.bakingapp.widget.WidgetUpdateService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +117,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         ArrayList<Ingredient> ingredients = Utility.fromListtoArrayList(recipe.getIngredients());
 
         // update widget UI after user pick a recipe
-//        WidgetUpdateService.startActionUpdateWidget(this,
-//                recipe.getName(),
-//                ingredients);
+        WidgetUpdateService.startActionUpdateWidget(this,
+                recipe.getName(),
+                ingredients);
+
 
         Intent intent = new Intent(getApplicationContext(),
                 DetailActivity.class);
@@ -125,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Ite
         startActivity(intent);
 
     }
-
     /**
      * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
      */
