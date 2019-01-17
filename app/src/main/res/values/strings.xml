@@ -30,4 +30,6 @@
     <string name="loading_indicator">Loading indicator</string>
     <string name="appwidget_prefix_default">prefix_</string>
     <string name="by_app_name">by TastyBaking</string>
+    <string name="added_to_widget">Recipe %s added to widget</string>
+
 </resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_ingredients_widget"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_ingredient_widget_title_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/ingredient_widget_title_holder_top_margin">
+
+        <TextView
+            android:id="@+id/tv_ingredient_widget_recipe_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ingredient_widget_title_margin"
+            android:layout_marginRight="@dimen/ingredient_widget_title_margin"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="@dimen/ingredient_widget_title_text_size"
+            tools:text="Nutella Pie" />
+
+        <TextView
+            android:id="@+id/tv_ingredient_widget_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorSecondaryDark"
+            android:paddingLeft="@dimen/ingredient_widget_label_padding"
+            android:paddingRight="@dimen/ingredient_widget_label_padding"
+            android:text="@string/ingredients"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/ingredient_widget_label_text_size" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_ingredient_widget_list"
+        style="@style/ingredientItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/ingredient_widget_list_bottom_margin"
+        android:layout_weight="1"
+        android:background="#FFF">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/tv_ingredient_widget_app_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ingredient_widget_app_title_margin"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_weight="0"
+        android:gravity="bottom|end"
+        android:text="@string/by_app_name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="12sp" />
+
+
+</LinearLayout>

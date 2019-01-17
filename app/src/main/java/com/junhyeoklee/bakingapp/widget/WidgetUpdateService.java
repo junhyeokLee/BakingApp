@@ -61,7 +61,7 @@ public class WidgetUpdateService extends IntentService {
         }
     }
 
-    private void updateWidget(String name, ArrayList<Ingredient>ingredientList){
+    private void updateWidget(String name, ArrayList<Ingredient> ingredientList){
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetsIds = appWidgetManager.getAppWidgetIds(
                 new ComponentName(this, IngredientWidgetProvider.class));

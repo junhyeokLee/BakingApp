@@ -2,7 +2,7 @@
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:initialLayout="@layout/widget_layout"
+    android:initialLayout="@layout/ingredient_widget_layout"
     android:minHeight="310dp"
     android:minWidth="210dp"
     android:resizeMode="horizontal |vertical"

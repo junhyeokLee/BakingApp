@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-
 import com.junhyeoklee.bakingapp.R;
 import com.junhyeoklee.bakingapp.data.model.Ingredient;
 
@@ -27,18 +26,18 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
     public static ArrayList<Ingredient> ingredientArrayList;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                               int appWidgetId, String name, ArrayList<Ingredient> ingredients) {
+                                int appWidgetId, String name, ArrayList<Ingredient> ingredients) {
 
         recipeName = name;
         ingredientArrayList = ingredients;
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredient_widget_layout);
 
         if(recipeName == null){
             Log.d(TAG, "updateAppWidget: do nothing for recipeName = null");
         } else {
 
-            remoteViews.setTextViewText(R.id.tv_widget_header, recipeName);
+            remoteViews.setTextViewText(R.id.tv_ingredient_widget_recipe_title, recipeName);
 
             Intent intent = new Intent(context, IngredientWidgetService.class);
 
@@ -47,8 +46,8 @@ public class IngredientWidgetProvider extends AppWidgetProvider {
             bundle.putParcelableArrayList("ingredients", ingredientArrayList);
             intent.putExtra("data", bundle);
 
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_view);
-            remoteViews.setRemoteAdapter(R.id.list_view, intent);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lv_ingredient_widget_list);
+            remoteViews.setRemoteAdapter(R.id.lv_ingredient_widget_list, intent);
         }
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);

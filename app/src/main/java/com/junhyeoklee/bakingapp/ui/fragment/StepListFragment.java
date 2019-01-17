@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +15,7 @@ import android.widget.Button;
 
 
 import com.junhyeoklee.bakingapp.R;
+import com.junhyeoklee.bakingapp.data.model.Recipe;
 import com.junhyeoklee.bakingapp.data.model.Step;
 import com.junhyeoklee.bakingapp.ui.StepActivity;
 import com.junhyeoklee.bakingapp.ui.adapter.StepAdapter;
@@ -24,6 +24,8 @@ import com.junhyeoklee.bakingapp.util.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.paperdb.Paper;
 
 public class StepListFragment extends Fragment implements StepAdapter.StepClickListener{
 
@@ -35,6 +37,7 @@ public class StepListFragment extends Fragment implements StepAdapter.StepClickL
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     StepAdapter stepAdapter;
+    private List<Recipe> mRecipes;
 
     public static StepListFragment newInstance(){
         StepListFragment f = new StepListFragment();
@@ -48,6 +51,7 @@ public class StepListFragment extends Fragment implements StepAdapter.StepClickL
         View view = inflater.inflate(R.layout.fragment_step_list,container,false);
         detailViewModel = ViewModelProviders.of(getActivity())
                 .get(DetailViewModel.class);
+
 
         Button ingredientsButton = (Button) view.findViewById(R.id.bt_ingredients);
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
